@@ -1,0 +1,36 @@
+{
+  "name": "mern-stack-authoritarian",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arfin-foysal/mern-stack-authoritarian.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/arfin-foysal/mern-stack-authoritarian/issues"
+  },
+  "homepage": "https://github.com/arfin-foysal/mern-stack-authoritarian#readme",
+  "dependencies": {
+    "bcrypt": "^5.0.1",
+    "cookie-session": "^2.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "express-session": "^1.17.2",
+    "jsonwebtoken": "^8.5.1",
+    "jwt-decode": "^3.1.2",
+    "mongoose": "^6.1.4",
+    "mysql2": "^2.3.3",
+    "nodemailer": "^6.7.7",
+    "passport": "^0.5.2",
+    "passport-google-oauth20": "^2.0.0",
+    "sequelize": "^6.21.3"
+  }
+}
