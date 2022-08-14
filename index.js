@@ -1,9 +1,10 @@
 const express = require("express");
 const cors = require("cors");
-const router = require("./routers/userRouter");
+const userRouter = require("./routers/userRouter");
 const auth = require("./middlewares/authUser");
 const { errorHandler } = require("./middlewares/errorMiddleware");
 const sequelize = require("./config/db");
+const postRouter = require("./routers/postRouter");
 require("dotenv").config();
 const app = express();
 
@@ -25,9 +26,11 @@ sequelize.sync({force:false}).then(result => {
 
 
 // Routing
-app.use("/api", router);
+app.use("/api", userRouter);
+app.use("/post",postRouter);
 
-app.get('/',auth, (req, res) => {
+app.get('/', auth, (req, res) => {
+  console.log(req.user.id);
   res.send("yes")
 })
 

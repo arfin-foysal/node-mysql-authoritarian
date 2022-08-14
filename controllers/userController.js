@@ -2,7 +2,8 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const sendMaile = require("../middlewares/sendMail");
-const User = require("../models/userMode");
+const Post = require("../models/postModel");
+const User = require("../models/userModel");
 
 
 // <========================= User Registration Profile =========================>
@@ -68,7 +69,8 @@ const verifyUser = async (req, res) => {
 
 const login = async (req, res) => {
   const { email, password } = req.body;
-  const findUser = await User.findOne({ where:{ email: email} });
+  const findUser = await User.findOne({ where: { email: email } });
+  
   if (!findUser) {
     return res.status(401).json({ messages: "User email is not SignUp" });
   }
@@ -77,14 +79,16 @@ const login = async (req, res) => {
   if (!UserValidPass) {
     return res.status(400).json({ messages: "User password is not valid" });
   }
-  if (!findUser.verified) {
+  if (findUser.verified === "0" ) {
     return res.status(404).json({ messages: "User is not verified" });
   }
 
-  const { _id, name, email: userEmail } = findUser;
+  const { id, name, email: userEmail } = findUser;
+
+  console.log(findUser.verified);
 
   const userInfo = {
-    id: _id,
+    id: id,
     name: name,
     email: userEmail,
   };
@@ -194,6 +198,28 @@ const logout = async (req, res) => {
   }
 };
 
+// <========================= all user =========================>
+const allUser = async (req, res) => {
+  await User.findAll(
+      {
+          include: [{
+              model: Post,
+          }],
+          attributes: ["id", "name", "email"],
+      }
+  ).then((users) => {
+      res.status(200).json({  
+          message: "All users",
+          users,
+      });
+  }).catch((error) => {
+      res.status(400).json({
+          message: "Error getting all users",
+          error,
+      });
+  }
+  );  
+}
 // // <========================= Refresh Token  =========================>
 
 // const refreshToken = (req, res) => {};
@@ -207,4 +233,5 @@ module.exports = {
   verifyUser,
 //   refreshToken,
   logout,
+  allUser,
 };
