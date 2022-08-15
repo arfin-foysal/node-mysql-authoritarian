@@ -8,7 +8,7 @@ const User = require("../models/userModel");
 
 // <========================= User Registration Profile =========================>
 
-const registration = async (req, res) => {
+const registration =  async (req, res) => {
   const { name, email, password } = req.body;
 
   const findUser = await User.findOne({ where:{ email: email} });
@@ -18,10 +18,13 @@ const registration = async (req, res) => {
 
 
 
+
   const newUser = await User.create({
     name: name,
     email: email,
+    avater: req.file.path,
     password: password,
+    
   });
   const secret = process.env.TOKEN;
   const payloade = {

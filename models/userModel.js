@@ -23,6 +23,9 @@ User.init({
     allowNull: false,
     unique: true,
   },
+  avater: {
+    type: DataTypes.STRING,
+  },
   password: {
     type: DataTypes.STRING,
     set(value) {
